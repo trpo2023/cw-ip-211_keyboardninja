@@ -4,6 +4,7 @@
 #include <time.h>
 
 #include <lexer.h>
+#include <record.h>
 
 // #define TIME_FOR_WORD 1
 
@@ -12,8 +13,10 @@ int main()
     srand(time(NULL));
     FILE *file;
     char **words = NULL;
+    char name[8];
     int num_words = 0, level;
     char *file_path;
+
     // long int begin = time(NULL);
     // long int end = begin + TIME_FOR_WORD;
 
@@ -27,13 +30,13 @@ int main()
     switch (level)
     {
     case 1:
-        file_path = "../res/lvl_easy.txt";
+        file_path = "../res/levels/lvl_easy.txt";
         break;
     case 2:
-        file_path = "../res/lvl_medium.txt";
+        file_path = "../res/levels/lvl_medium.txt";
         break;
     case 3:
-        file_path = "../res/lvl_hard.txt";
+        file_path = "../res/levels/lvl_hard.txt";
         break;
     default:
         printf("wrong difficulty level\n");
@@ -51,6 +54,16 @@ int main()
     words = word_lexer(file, &num_words);
 
     fclose(file);
+
+    for (int i = 0; i < 13; i++)
+    {
+        printf("Type your name: ");
+        scanf("%s", name);
+
+        InsertLeader(name, rand() % 100);
+    }
+
+    LoadLeaderboard();
 
     for (int i = 0; i < num_words; i++)
     {

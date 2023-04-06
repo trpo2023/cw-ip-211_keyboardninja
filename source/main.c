@@ -65,8 +65,6 @@ int main()
     int score = start_game(words, num_words);
     printf("%d\n", score);
 
-    PrintLeaderboard(records, num_records);
-
     printf("Type your name (max 7 symbols): ");
     scanf("%s", name);
     name[MAX_NAME_LENGTH - 1] = '\0';

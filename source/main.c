@@ -63,7 +63,7 @@ int main()
         InsertLeader(name, rand() % 100);
     }
 
-    LoadLeaderboard();
+    PrintLeaderboard();
 
     for (int i = 0; i < num_words; i++)
     {

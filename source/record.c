@@ -50,7 +50,7 @@ void InsertLeader(char *name, int score)
         num_records++;
 }
 
-void LoadLeaderboard()
+void PrintLeaderboard()
 {
     char string_header[] = "|  No  |     Name     |     Score     |";
     int i;

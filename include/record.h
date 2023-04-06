@@ -14,4 +14,4 @@ int CompareLeaders(int i, int j);
 
 void InsertLeader(char *name, int score);
 
-void LoadLeaderboard();
+void PrintLeaderboard();

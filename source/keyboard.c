@@ -26,13 +26,13 @@ int main()
     switch (level)
     {
     case 1:
-        file = fopen("easy.txt", "r");
+        file = fopen("../res/lvl_easy.txt", "r");
         break;
     case 2:
-        file = fopen("medium.txt", "r");
+        file = fopen("../res/lvl_medium.txt", "r");
         break;
     case 3:
-        file = fopen("hard.txt", "r");
+        file = fopen("../res/lvl_hard.txt", "r");
         break;
     default:
         printf("wrong difficulty level\n");

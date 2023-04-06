@@ -4,8 +4,7 @@
 #include <time.h>
 
 #include <lexer.h>
-
-// #define TIME_FOR_WORD 1
+#include <game.h>
 
 int main()
 {
@@ -14,8 +13,6 @@ int main()
     char **words = NULL;
     int num_words = 0, level;
     char *file_path;
-    // long int begin = time(NULL);
-    // long int end = begin + TIME_FOR_WORD;
 
     printf("Choose difficulty:\n");
     printf("1. Easy\n");
@@ -51,6 +48,9 @@ int main()
     words = word_lexer(file, &num_words);
 
     fclose(file);
+
+    int score = start_game(words, num_words);
+    printf("%d\n", score);
 
     for (int i = 0; i < num_words; i++)
     {

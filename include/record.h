@@ -1,17 +1,18 @@
 #pragma once
 
 #define MAX_NUM_RECORDS 10
+#define MAX_NAME_LENGTH 8
 
-struct Record
+typedef struct
 {
-    char name[20];
+    char name[MAX_NAME_LENGTH];
     int score;
-};
+} Record;
 
-void AddLeader(char *name, int score);
+void LoadLeaders(Record *records, int *num_records, char *leader_path);
 
-int CompareLeaders(int i, int j);
+void SaveLeaders(Record *records, int num_records, char *leader_path);
 
-void InsertLeader(char *name, int score);
+void AddLeader(Record *records, int *num_records, char *name, int score);
 
-void PrintLeaderboard();
+void PrintLeaderboard(Record *records, int num_records);

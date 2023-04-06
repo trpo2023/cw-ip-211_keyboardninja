@@ -12,10 +12,12 @@ int main()
 {
     srand(time(NULL));
     FILE *file;
+    Record records[MAX_NUM_RECORDS];
+    int num_records = 0;
     char **words = NULL;
-    char name[8];
+    char name[50];
     int num_words = 0, level;
-    char *file_path;
+    char *file_path, *leader_path;
 
     // long int begin = time(NULL);
     // long int end = begin + TIME_FOR_WORD;
@@ -31,12 +33,15 @@ int main()
     {
     case 1:
         file_path = "../res/levels/lvl_easy.txt";
+        leader_path = "../res/leaders/leaders_easy.txt";
         break;
     case 2:
         file_path = "../res/levels/lvl_medium.txt";
+        leader_path = "../res/leaders/leaders_medium.txt";
         break;
     case 3:
         file_path = "../res/levels/lvl_hard.txt";
+        leader_path = "../res/leaders/leaders_hard.txt";
         break;
     default:
         printf("wrong difficulty level\n");
@@ -44,6 +49,7 @@ int main()
     }
 
     file = fopen(file_path, "r");
+    LoadLeaders(records, &num_records, leader_path);
 
     if (file == NULL)
     {
@@ -55,15 +61,15 @@ int main()
 
     fclose(file);
 
-    for (int i = 0; i < 13; i++)
-    {
-        printf("Type your name: ");
-        scanf("%s", name);
+    PrintLeaderboard(records, num_records);
 
-        InsertLeader(name, rand() % 100);
-    }
+    printf("Type your name (max 7 symbols): ");
+    scanf("%s", name);
+    name[MAX_NAME_LENGTH - 1] = '\0';
 
-    PrintLeaderboard();
+    AddLeader(records, &num_records, name, rand() % 100);
+    SaveLeaders(records, num_records, leader_path);
+    PrintLeaderboard(records, num_records);
 
     for (int i = 0; i < num_words; i++)
     {

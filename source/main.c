@@ -5,17 +5,17 @@
 
 #include <lexer.h>
 
-// #define TIME_FOR_WORD 1
+#define TIME_FOR_GAME 30
 
 int main()
 {
     srand(time(NULL));
     FILE *file;
     char **words = NULL;
-    int num_words = 0, level;
+    int num_words = 0, level, score = 0, all_score = 0;
     char *file_path;
-    // long int begin = time(NULL);
-    // long int end = begin + TIME_FOR_WORD;
+    time_t start_time = time(NULL);
+    char input_word[MAX_WORD_LENGTH], *output_word;
 
     printf("Choose difficulty:\n");
     printf("1. Easy\n");
@@ -51,6 +51,27 @@ int main()
     words = word_lexer(file, &num_words);
 
     fclose(file);
+
+    score = 0;
+    all_score = 0;
+    while (time(NULL) - start_time < TIME_FOR_GAME)
+    {
+        output_word = words[rand() % num_words];
+        printf("> %s\n> ", output_word);
+        scanf("%s", input_word);
+        if (strcmp(input_word, output_word) == 0)
+        {
+            printf("Correct!\n");
+            score++;
+            all_score++;
+        }
+        else
+        {
+            printf("Incorrect!\n");
+            all_score++;
+        }
+    }
+    printf("You scored %d/%d. Congratulations!\n", score, all_score);
 
     for (int i = 0; i < num_words; i++)
     {

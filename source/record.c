@@ -1,26 +1,25 @@
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <record.h>
 
-int CompareLeaders(const void *a, const void *b)
+int CompareLeaders(const void* a, const void* b)
 {
-    const Record *record_a = (const Record *)a;
-    const Record *record_b = (const Record *)b;
+    const Record* record_a = (const Record*)a;
+    const Record* record_b = (const Record*)b;
     return record_b->score - record_a->score;
 }
 
-void LoadLeaders(Record *records, int *num_records, char *leader_path)
+void LoadLeaders(Record* records, int* num_records, char* leader_path)
 {
-    FILE *file = fopen(leader_path, "r");
+    FILE* file = fopen(leader_path, "r");
     char name[MAX_NAME_LENGTH];
     int score;
-    if (file)
-    {
+    if (file) {
         *num_records = 0;
-        while ((*num_records < MAX_NUM_RECORDS) && (fscanf(file, "%s %d", name, &score) == 2))
-        {
+        while ((*num_records < MAX_NUM_RECORDS)
+               && (fscanf(file, "%s %d", name, &score) == 2)) {
             Record new_record;
             strcpy(new_record.name, name);
             new_record.score = score;
@@ -28,48 +27,38 @@ void LoadLeaders(Record *records, int *num_records, char *leader_path)
             (*num_records)++;
         }
         fclose(file);
-    }
-    else
+    } else
         printf("\nCan't open leaderboard!\n");
 }
 
-void SaveLeaders(Record *records, int num_records, char *leader_path)
+void SaveLeaders(Record* records, int num_records, char* leader_path)
 {
-    FILE *file = fopen(leader_path, "w");
-    if (file)
-    {
-        for (int i = 0; i < num_records; i++)
-        {
+    FILE* file = fopen(leader_path, "w");
+    if (file) {
+        for (int i = 0; i < num_records; i++) {
             fprintf(file, "%s %d\n", records[i].name, records[i].score);
         }
         fclose(file);
     }
 }
 
-void AddLeader(Record *records, int *num_records, char *name, int score)
+void AddLeader(Record* records, int* num_records, char* name, int score)
 {
     Record new_record;
     strcpy(new_record.name, name);
     new_record.score = score;
-    if (*num_records < MAX_NUM_RECORDS)
-    {
+    if (*num_records < MAX_NUM_RECORDS) {
         records[*num_records] = new_record;
         (*num_records)++;
-    }
-    else
-    {
+    } else {
         int insert_index = -1;
-        for (int i = 0; i < MAX_NUM_RECORDS; i++)
-        {
-            if (new_record.score > records[i].score)
-            {
+        for (int i = 0; i < MAX_NUM_RECORDS; i++) {
+            if (new_record.score > records[i].score) {
                 insert_index = i;
             }
         }
-        if (insert_index != -1)
-        {
-            for (int i = MAX_NUM_RECORDS - 1; i > insert_index; i--)
-            {
+        if (insert_index != -1) {
+            for (int i = MAX_NUM_RECORDS - 1; i > insert_index; i--) {
                 records[i] = records[i - 1];
             }
             records[insert_index] = new_record;
@@ -78,13 +67,16 @@ void AddLeader(Record *records, int *num_records, char *name, int score)
     qsort(records, *num_records, sizeof(Record), CompareLeaders);
 }
 
-void PrintLeaderboard(Record *records, int num_records)
+void PrintLeaderboard(Record* records, int num_records)
 {
     int i;
     puts("+-----+-----------+---------+");
     puts("|  №  |  Name     |  Score  |");
     puts("+-----+-----------+---------+");
     for (i = 0; i < num_records; i++)
-        printf("|  %2d |  %-8s |  %5d  |\n", i + 1, records[i].name, records[i].score);
+        printf("|  %2d |  %-8s |  %5d  |\n",
+               i + 1,
+               records[i].name,
+               records[i].score);
     puts("+-----+-----------+---------+");
 }

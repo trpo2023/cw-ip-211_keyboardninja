@@ -4,20 +4,20 @@
 #include <time.h>
 #include <unistd.h>
 
-#include <lexer.h>
 #include <game.h>
-#include <record.h>
+#include <lexer.h>
 #include <menu.h>
+#include <record.h>
 
 // #define TIME_FOR_WORD 1
 
 int main()
 {
     srand(time(NULL));
-    FILE *file;
+    FILE* file;
     Record records[MAX_NUM_RECORDS];
     int num_records = 0;
-    char **words = NULL;
+    char** words = NULL;
     char name[30];
     int num_words = 0;
     char *file_path, *leader_path;
@@ -28,24 +28,20 @@ int main()
     leader_path = "../res/leaders/leaders_medium.txt";
     LoadLeaders(records, &num_records, leader_path);
 
-    do
-    {
+    do {
         PrintMenu();
         scanf("%c", &option);
-        switch (option)
-        {
+        switch (option) {
         case '1':
             file = fopen(file_path, "r");
-            if (file == NULL)
-            {
+            if (file == NULL) {
                 printf("Could not open file\n");
                 return 1;
             }
             words = word_lexer(file, &num_words);
             fclose(file);
             char restart;
-            do
-            {
+            do {
                 int score = start_game(words, num_words);
                 printf("Your score: %d !\n", score);
                 printf("Enter your name: ");
@@ -59,15 +55,15 @@ int main()
 
             SaveLeaders(records, num_records, leader_path);
             for (int i = 0; i < num_words; i++)
-                free(words[i]); // освободить память, выделенную для каждого слова
+                free(words[i]); // освободить память, выделенную для каждого
+                                // слова
             free(words);
             break;
         case '2':
             PrintDifficulty();
             getchar();
             scanf("%c", &level);
-            switch (level)
-            {
+            switch (level) {
             case '1':
                 file_path = "../res/levels/lvl_easy.txt";
                 leader_path = "../res/leaders/leaders_easy.txt";

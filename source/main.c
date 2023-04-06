@@ -3,8 +3,9 @@
 #include <string.h>
 #include <time.h>
 
-#define TIME_FOR_WORD 1
-#define MAX_WORD_LENGTH 50
+#include <lexer.h>
+
+// #define TIME_FOR_WORD 1
 
 int main()
 {
@@ -12,9 +13,9 @@ int main()
     FILE *file;
     char **words = NULL;
     int num_words = 0, level;
-    char word[MAX_WORD_LENGTH];
-    long int begin = time(NULL);
-    long int end = begin + TIME_FOR_WORD;
+    char *file_path;
+    // long int begin = time(NULL);
+    // long int end = begin + TIME_FOR_WORD;
 
     printf("Choose difficulty:\n");
     printf("1. Easy\n");
@@ -26,18 +27,20 @@ int main()
     switch (level)
     {
     case 1:
-        file = fopen("../res/lvl_easy.txt", "r");
+        file_path = "../res/lvl_easy.txt";
         break;
     case 2:
-        file = fopen("../res/lvl_medium.txt", "r");
+        file_path = "../res/lvl_medium.txt";
         break;
     case 3:
-        file = fopen("../res/lvl_hard.txt", "r");
+        file_path = "../res/lvl_hard.txt";
         break;
     default:
         printf("wrong difficulty level\n");
         return 1;
     }
+
+    file = fopen(file_path, "r");
 
     if (file == NULL)
     {
@@ -45,21 +48,9 @@ int main()
         return 1;
     }
 
-    while (fscanf(file, "%s", word) == 1)
-    {
-        num_words++;
-        words = (char **)realloc(words, num_words * sizeof(char *));
-        words[num_words - 1] = (char *)malloc(strlen(word) + 1);
-        strcpy(words[num_words - 1], word);
-    }
+    words = word_lexer(file, &num_words);
 
     fclose(file);
-
-    // while (begin < end)
-    // {
-    //     begin = time(NULL);
-    //     printf("a\n");
-    // }
 
     for (int i = 0; i < num_words; i++)
     {

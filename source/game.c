@@ -11,6 +11,13 @@
 
 #define TIME_FOR_GAME 30
 
+char get_input_char()
+{
+    char c;
+    read(STDIN_FILENO, &c, 1);
+    return c;
+}
+
 int start_game(char** words, int num_words)
 {
     char input_word[MAX_WORD_LENGTH], *output_word;
@@ -40,11 +47,9 @@ int start_game(char** words, int num_words)
         printf("> %s\n", output_word);
 
         // читаем вводимые символы в неканоническом режиме
-        // перевести этот цикл в функцию для покрытия тестами?
         int i = 0;
         while (1) {
-            char c;
-            read(STDIN_FILENO, &c, 1);
+            char c = get_input_char();
             if (c == '\n') {
                 input_word[i] = '\0';
                 break;

@@ -34,7 +34,7 @@ cmake ..
 make
 
 # Run
-./geometry
+./keyboard-ninja
 ```
 
 ## In one command

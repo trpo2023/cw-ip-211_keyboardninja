@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include <ctest.h>
+
 #include <lexer.h>
 
 CTEST(lextest, data_test1)
@@ -10,7 +11,7 @@ CTEST(lextest, data_test1)
     char* exp_words[5] = {"apple", "yummy", "zoo", "rocket", "high"};
     int num_words;
     char** tmp_words;
-    char* file_path = "../res/test.txt";
+    char* file_path = "../res/test/test1.txt";
     FILE* file = fopen(file_path, "r");
     tmp_words = word_lexer(file, &num_words);
     fclose(file);

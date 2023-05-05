@@ -24,16 +24,11 @@ sudo apt install git build-essential pkg-config cmake cmake-data
 # Clone this repo
 git clone https://github.com/trpo2023/cw-ip-211_keyboardninja.git
 cd cw-ip-211_keyboardninja
-
-# Create a build folder
-mkdir build
+# Run kninja script
+./kninja
+# Go to the build directory
 cd build
-
-# Build
-cmake ..
-make
-
-# Run
+# Run app and enjoy
 ./keyboard-ninja
 ```
 

@@ -13,3 +13,5 @@
 void PrintMenu();
 void PrintDifficulty();
 void PrintCountdown();
+void SelectDifficulty(
+        char* level, char str_level[], char** file_path, char** leader_path);

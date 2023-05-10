@@ -55,7 +55,7 @@ void PrintCountdown()
     fflush(stdout);
     usleep(123333);
     printf("GO!\n\n");
-    printf("Blind typing, type /quit to return to main menu.\n\n");
     fflush(stdout);
     usleep(123333);
+    clear();
 }

@@ -35,8 +35,7 @@ int start_game(char** words, int num_words)
     newattr = oldattr;
 
     // выключаем канонический режим ввода и отображение вводимых символов
-    // newattr.c_lflag &= ~(ICANON | ECHO);
-    newattr.c_lflag &= ~(ICANON);
+    newattr.c_lflag &= ~(ICANON | ECHO);
 
     // устанавливаем новые настройки терминала
     tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
@@ -49,32 +48,47 @@ int start_game(char** words, int num_words)
     time_t start_time = time(NULL);
     while (time(NULL) - start_time < TIME_FOR_GAME) {
         output_word = words[rand() % num_words];
-        printf("> %s\n", output_word);
 
+        for (int j = 0; j < MAX_WORD_LENGTH; j++)
+            input_word[j] = '\0';
         // читаем вводимые символы в неканоническом режиме
         int i = 0;
         while (1) {
+            puts("");
+            printf("Type /quit to return to main menu.\n\nOutput "
+                   "word:\n> ");
+            puts(output_word);
+            printf("\n> ");
+            puts(input_word);
             char c = get_input_char();
             if (c == '\n') {
                 input_word[i] = '\0';
+                clear();
                 break;
             }
-            if ((c == newattr.c_cc[VERASE]) && (i > 0)) {
-                i--;
+            if (c == newattr.c_cc[VERASE]) {
+                if (i == 0) {
+                    input_word[0] = '\0';
+                } else {
+                    i--;
+                    input_word[i] = '\0';
+                }
+                clear();
                 continue;
             }
             input_word[i++] = c;
+            clear();
         }
 
         // проверяем введенное слово на соответствие
         if (strcmp(input_word, output_word) == 0) {
-            printf("%sCorrect!%s\n", GREEN, RESET);
+            printf("%sCorrect!%s", GREEN, RESET);
             score++;
         } else if (strcmp(input_word, "/quit") == 0) {
             score = -1;
             break;
         } else {
-            printf("%sIncorrect!%s\n", RED, RESET);
+            printf("%sIncorrect!%s", RED, RESET);
         }
         int time_left = TIME_FOR_GAME - (time(NULL) - start_time);
         update_window(time_left, score);

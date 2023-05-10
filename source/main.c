@@ -46,7 +46,7 @@ int main()
             do {
                 int score = start_game(words, num_words);
                 if (score != -1) {
-                    printf("Your score: %d !\n", score);
+                    printf("\nYour score: %d !\n", score);
                     printf("Enter your name: ");
                     scanf("%s", name);
                     name[MAX_NAME_LENGTH - 1] = '\0';

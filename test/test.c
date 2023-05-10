@@ -7,6 +7,7 @@
 #include <game.h>
 #include <lexer.h>
 #include <menu.h>
+#include <record.h>
 
 CTEST(lextest, data_test1)
 {
@@ -90,4 +91,37 @@ CTEST(difftest, dificulty_choice4)
     ASSERT_STR("MEDIUM", str_level);
     ASSERT_STR("../res/levels/lvl_medium.txt", file_path);
     ASSERT_STR("../res/leaders/leaders_medium.txt", leader_path);
+}
+
+CTEST(recordtest, load_record)
+{
+    Record records[MAX_NUM_RECORDS];
+    int num_records = 0;
+    char* leader_path = "../res/test/test_leaders.txt";
+    LoadLeaders(records, &num_records, leader_path);
+    ASSERT_STR("aboba", records[0].name);
+    ASSERT_EQUAL(1, records[0].score);
+    ASSERT_STR("boss", records[1].name);
+    ASSERT_EQUAL(3, records[1].score);
+    ASSERT_STR("ryodan", records[2].name);
+    ASSERT_EQUAL(5, records[2].score);
+}
+
+CTEST(recordtest, add_record)
+{
+    Record records[MAX_NUM_RECORDS];
+    int num_records = 0;
+    int score = 4;
+    char name[7] = "mars";
+    char* leader_path = "../res/test/test_leaders.txt";
+    LoadLeaders(records, &num_records, leader_path);
+    AddLeader(records, &num_records, name, score);
+    ASSERT_STR("ryodan", records[0].name);
+    ASSERT_EQUAL(5, records[0].score);
+    ASSERT_STR("mars", records[1].name);
+    ASSERT_EQUAL(4, records[1].score);
+    ASSERT_STR("boss", records[2].name);
+    ASSERT_EQUAL(3, records[2].score);
+    ASSERT_STR("aboba", records[3].name);
+    ASSERT_EQUAL(1, records[3].score);
 }

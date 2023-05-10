@@ -54,7 +54,10 @@ int start_game(char** words, int num_words)
         // читаем вводимые символы в неканоническом режиме
         int i = 0;
         while (1) {
+            int time_left = TIME_FOR_GAME - (time(NULL) - start_time);
+            update_window(time_left, score);
             puts("");
+            printf("Remaining time: %d seconds\n", time_left);
             printf("Type /quit to return to main menu.\n\nOutput "
                    "word:\n> ");
             puts(output_word);

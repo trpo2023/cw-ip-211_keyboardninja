@@ -60,9 +60,10 @@ void PrintCountdown()
     clear();
 }
 
-void SelectDifficulty(
+int SelectDifficulty(
         char* level, char str_level[], char** file_path, char** leader_path)
 {
+    int wrong_type = 0;
     switch (*level) {
     case '1':
         *file_path = "../res/levels/lvl_easy.txt";
@@ -80,19 +81,12 @@ void SelectDifficulty(
         strcpy(str_level, "HARD");
         break;
     default:
-        printf("Wrong difficulty level!\n");
-        fflush(stdout);
-        usleep(666666);
-        printf("Set default difficulty (medium)..\n\n");
-        fflush(stdout);
-        usleep(666666);
+        wrong_type = 1;
         *file_path = "../res/levels/lvl_medium.txt";
         *leader_path = "../res/leaders/leaders_medium.txt";
         strcpy(str_level, "MEDIUM");
         *level = '2';
         break;
     }
-    printf("Chosen %s level of difficulty!", str_level);
-    fflush(stdout);
-    usleep(999999);
+    return wrong_type;
 }

@@ -46,6 +46,8 @@ int start_game(char** words, int num_words)
 
     // начинаем игру
     time_t start_time = time(NULL);
+    tcflush(STDIN_FILENO, TCIFLUSH);
+
     while (time(NULL) - start_time < TIME_FOR_GAME) {
         output_word = words[rand() % num_words];
 

@@ -68,7 +68,18 @@ int main()
             PrintDifficulty();
             getchar();
             scanf("%c", &level);
-            SelectDifficulty(&level, str_level, &file_path, &leader_path);
+            if (SelectDifficulty(&level, str_level, &file_path, &leader_path)) {
+                printf("Chosen %s level of difficulty!", str_level);
+                fflush(stdout);
+                usleep(999999);
+            } else {
+                printf("Wrong difficulty level!\n");
+                fflush(stdout);
+                usleep(666666);
+                printf("Set default difficulty (medium)..\n\n");
+                fflush(stdout);
+                usleep(666666);
+            }
             LoadLeaders(records, &num_records, leader_path);
             break;
         case '3':

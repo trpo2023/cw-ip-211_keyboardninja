@@ -81,6 +81,7 @@ int SelectDifficulty(
         strcpy(str_level, "HARD");
         break;
     default:
+        wrong_type = 1;
         *file_path = "../res/levels/lvl_medium.txt";
         *leader_path = "../res/leaders/leaders_medium.txt";
         strcpy(str_level, "MEDIUM");

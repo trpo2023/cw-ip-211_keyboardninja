@@ -68,7 +68,8 @@ int main()
             PrintDifficulty();
             getchar();
             scanf("%c", &level);
-            if (SelectDifficulty(&level, str_level, &file_path, &leader_path)) {
+            if (!SelectDifficulty(
+                        &level, str_level, &file_path, &leader_path)) {
                 printf("Chosen %s level of difficulty!", str_level);
                 fflush(stdout);
                 usleep(999999);

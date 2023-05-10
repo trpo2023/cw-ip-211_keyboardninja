@@ -19,7 +19,7 @@ int main()
     int num_records = 0;
     char** words = NULL;
     char name[30];
-    int num_words = 0;
+    int num_words;
     char *file_path, *leader_path;
     char str_level[10];
     char option, level = '2';
@@ -33,24 +33,29 @@ int main()
         scanf("%c", &option);
         switch (option) {
         case '1':
+            num_words = 0;
             file = fopen(file_path, "r");
             if (file == NULL) {
                 printf("Could not open file\n");
                 return 1;
             }
+            words = NULL;
             words = word_lexer(file, &num_words);
             fclose(file);
             char restart;
             do {
                 int score = start_game(words, num_words);
-                printf("Your score: %d !\n", score);
-                printf("Enter your name: ");
-                scanf("%s", name);
-                name[MAX_NAME_LENGTH - 1] = '\0';
-                AddLeader(records, &num_records, name, score);
-                printf("Restart? (y/n)");
-                getchar();
-                restart = getchar();
+                if (score != -1) {
+                    printf("Your score: %d !\n", score);
+                    printf("Enter your name: ");
+                    scanf("%s", name);
+                    name[MAX_NAME_LENGTH - 1] = '\0';
+                    AddLeader(records, &num_records, name, score);
+                    printf("Restart? (y/n)");
+                    getchar();
+                    restart = getchar();
+                } else
+                    restart = 'n';
             } while (restart != 'n');
 
             SaveLeaders(records, num_records, leader_path);

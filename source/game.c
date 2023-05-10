@@ -35,7 +35,8 @@ int start_game(char** words, int num_words)
     newattr = oldattr;
 
     // выключаем канонический режим ввода и отображение вводимых символов
-    newattr.c_lflag &= ~(ICANON | ECHO);
+    // newattr.c_lflag &= ~(ICANON | ECHO);
+    newattr.c_lflag &= ~(ICANON);
 
     // устанавливаем новые настройки терминала
     tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
@@ -58,6 +59,10 @@ int start_game(char** words, int num_words)
                 input_word[i] = '\0';
                 break;
             }
+            if ((c == newattr.c_cc[VERASE]) && (i > 0)) {
+                i--;
+                continue;
+            }
             input_word[i++] = c;
         }
 
@@ -65,6 +70,9 @@ int start_game(char** words, int num_words)
         if (strcmp(input_word, output_word) == 0) {
             printf("%sCorrect!%s\n", GREEN, RESET);
             score++;
+        } else if (strcmp(input_word, "/quit") == 0) {
+            score = -1;
+            break;
         } else {
             printf("%sIncorrect!%s\n", RED, RESET);
         }

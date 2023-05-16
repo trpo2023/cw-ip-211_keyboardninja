@@ -27,6 +27,7 @@ int main()
 
     file_path = "../res/levels/lvl_medium.txt"; // default difficulty level
     leader_path = "../res/leaders/leaders_medium.txt";
+    strcpy(str_level, "MEDIUM");
     LoadLeaders(records, &num_records, leader_path);
 
     // сохраняем текущие настройки терминала
@@ -41,6 +42,8 @@ int main()
 
     // устанавливаем новые настройки терминала
     tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
+
+    printf("\033]0;Keyboard Ninja\007");
 
     do {
         PrintMenu();

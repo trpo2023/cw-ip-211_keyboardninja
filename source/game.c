@@ -17,10 +17,10 @@ char get_input_char()
     read(STDIN_FILENO, &c, 1);
     return c;
 }
-void update_window(int time_left, int score)
-{
-    printf("\033]0;Time left: %d seconds | Score: %d\007", time_left, score);
-}
+// void update_window(int time_left, int score)
+// {
+//     printf("\033]0;Time left: %d seconds | Score: %d\007", time_left, score);
+// }
 
 int start_game(char** words, int num_words)
 {
@@ -57,7 +57,7 @@ int start_game(char** words, int num_words)
         int i = 0;
         while (1) {
             int time_left = TIME_FOR_GAME - (time(NULL) - start_time);
-            update_window(time_left, score);
+            // update_window(time_left, score);
             puts("");
             printf("Remaining time: %d seconds\n", time_left);
             printf("Type /quit to return to main menu.\n\nOutput "
@@ -95,12 +95,12 @@ int start_game(char** words, int num_words)
         } else {
             printf("%sIncorrect!%s", RED, RESET);
         }
-        int time_left = TIME_FOR_GAME - (time(NULL) - start_time);
-        update_window(time_left, score);
+        // int time_left = TIME_FOR_GAME - (time(NULL) - start_time);
+        // update_window(time_left, score);
     }
 
     // возвращаем старые настройки терминала
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
+    // tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
 
     return score;
 }

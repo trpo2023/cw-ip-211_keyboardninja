@@ -25,9 +25,11 @@ int main()
     char str_level[10];
     char option, level = '2';
 
-    file_path = "../res/levels/lvl_medium.txt"; // default difficulty level
-    leader_path = "../res/leaders/leaders_medium.txt";
-    strcpy(str_level, "MEDIUM");
+    SelectDifficulty(
+            &level,
+            str_level,
+            &file_path,
+            &leader_path); // Стандартный уровень сложности
     LoadLeaders(records, &num_records, leader_path);
 
     // сохраняем текущие настройки терминала

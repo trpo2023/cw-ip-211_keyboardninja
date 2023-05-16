@@ -1,0 +1,8 @@
+*.exe
+*.o
+keyboard
+build
+.vscode
+*.a
+*.c'
+*.obj

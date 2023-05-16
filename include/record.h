@@ -8,6 +8,8 @@ typedef struct {
     int score;
 } Record;
 
+int CompareLeaders(const void* a, const void* b);
+
 void LoadLeaders(Record* records, int* num_records, char* leader_path);
 
 void SaveLeaders(Record* records, int num_records, char* leader_path);
